@@ -1,0 +1,153 @@
+---
+import Base from '../../layouts/Base.astro';
+import { fetchAllProducts } from '../../lib/fetchProducts.js';
+import { slugify, getPrice, formatPrice, ALL_MDS } from '../../lib/products.js';
+
+export async function getStaticPaths() {
+  const { designs } = await fetchAllProducts();
+  return designs.map(d => ({
+    params: { slug: slugify(d.name, d.id) },
+    props:  { design: d },
+  }));
+}
+
+const { design } = Astro.props;
+const slug       = slugify(design.name, design.id);
+const price13    = formatPrice(3500);
+const price14    = formatPrice(5000);
+---
+
+<Base
+  title={`${design.name} — Coque iPhone CultureCase`}
+  description={`Coque iPhone ${design.name} inspirée de la culture malienne. ${design.story}. Disponible de l'iPhone 12 au 17 Pro Max.`}
+  image={design.img}
+>
+  <div style="max-width:900px;margin:0 auto;padding:4rem 1.5rem;font-family:'DM Sans',sans-serif">
+
+    <!-- Breadcrumb -->
+    <nav style="font-size:12px;color:#9A7848;margin-bottom:2rem">
+      <a href="/culturecase-astro/" style="color:#D94E15;text-decoration:none">Accueil</a>
+      <span style="margin:0 8px">›</span>
+      <a href="/culturecase-astro/catalogue" style="color:#D94E15;text-decoration:none">Catalogue</a>
+      <span style="margin:0 8px">›</span>
+      <span>{design.name}</span>
+    </nav>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start">
+
+      <!-- Image -->
+      <div>
+        <img
+          src={design.img}
+          alt={`Coque iPhone ${design.name}`}
+          style="width:100%;border-radius:12px;box-shadow:0 16px 48px rgba(217,78,21,.16)"
+          loading="eager"
+        />
+      </div>
+
+      <!-- Infos -->
+      <div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:2px;color:#D94E15;text-transform:uppercase">
+          {design.cat}
+        </span>
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:#0F0700;margin:.5rem 0 1rem;line-height:1">
+          {design.name}
+        </h1>
+        <p style="color:#9A7848;line-height:1.7;margin-bottom:2rem">{design.story}</p>
+
+        <!-- Prix -->
+        <div style="background:#F4EAD0;border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.5rem">
+          <div style="font-size:12px;color:#9A7848;margin-bottom:.5rem">Prix selon modèle</div>
+          <div style="display:flex;gap:1.5rem">
+            <div>
+              <div style="font-size:11px;color:#9A7848">iPhone 12 / 13</div>
+              <div style="font-size:1.4rem;font-weight:700;color:#D94E15">{price13}</div>
+            </div>
+            <div>
+              <div style="font-size:11px;color:#9A7848">iPhone 14 → 17</div>
+              <div style="font-size:1.4rem;font-weight:700;color:#D94E15">{price14}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sélecteur modèle + panier — île interactive -->
+        <div id={`product-island-${design.id}`} data-design-id={design.id} data-design-name={design.name}>
+          <select id="model-select" style="width:100%;padding:12px;border:1.5px solid #E2CEAA;border-radius:8px;font-size:14px;margin-bottom:1rem;background:#fff">
+            <option value="">— Choisir mon modèle iPhone —</option>
+            {ALL_MDS.map(m => <option value={m}>{m}</option>)}
+          </select>
+          <div id="stock-info" style="font-size:13px;color:#9A7848;margin-bottom:1rem;min-height:20px"></div>
+          
+            id="wa-btn"
+            href="#"
+            style="display:block;background:#D94E15;color:#fff;text-align:center;padding:14px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;letter-spacing:1px"
+          >
+            Commander sur WhatsApp
+          </a>
+        </div>
+
+        <!-- Script île interactive (stock temps réel) -->
+        <script define:vars={{ designId: design.id, designName: design.name }}>
+          (function() {
+            const select   = document.getElementById('model-select');
+            const stockDiv = document.getElementById('stock-info');
+            const waBtn    = document.getElementById('wa-btn');
+
+            // Charger Firebase côté client pour le stock temps réel
+            import('https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js')
+              .then(({ initializeApp, getApps }) => {
+                import('https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js')
+                  .then(({ getFirestore, doc, onSnapshot }) => {
+                    const cfg = {
+                      apiKey:     document.querySelector('meta[name="fb-key"]')?.content,
+                      projectId:  'culturecase-gs',
+                      appId:      '1:369046579849:web:3672d245a9f7d42e687458',
+                    };
+                    const app = getApps().length ? getApps()[0] : initializeApp(cfg);
+                    const db  = getFirestore(app);
+
+                    let stockMap = {};
+
+                    onSnapshot(doc(db, 'settings', 'main'), snap => {
+                      if (!snap.exists()) return;
+                      const data = snap.data();
+                      const products = data.products || (data.settings || {}).products || [];
+                      stockMap = {};
+                      for (const p of products) {
+                        if (p.designId !== designId && p.design?.toUpperCase() !== designName) continue;
+                        if (!stockMap[p.model]) stockMap[p.model] = p.stock || 0;
+                      }
+                      updateStock();
+                    });
+
+                    function updateStock() {
+                      const model = select.value;
+                      if (!model) { stockDiv.textContent = ''; waBtn.href = '#'; return; }
+                      const qty = stockMap[model] ?? -1;
+                      const g1  = ['iPhone 12','iPhone 12 Pro Max','iPhone 13','iPhone 13 Pro','iPhone 13 Pro Max'];
+                      const price = g1.includes(model) ? '3 500' : '5 000';
+                      if (qty === 0) {
+                        stockDiv.innerHTML = '<span style="color:#C03A08">⚠ Rupture de stock pour ce modèle</span>';
+                        waBtn.href = '#';
+                        waBtn.style.opacity = '.4';
+                        waBtn.style.pointerEvents = 'none';
+                      } else {
+                        const hint = qty > 0 && qty <= 3 ? ` · ${qty} restant${qty>1?'s':''}` : '';
+                        stockDiv.innerHTML = `<span style="color:#1E5C35">✓ Disponible${hint}</span> · ${price} FCFA`;
+                        waBtn.style.opacity = '1';
+                        waBtn.style.pointerEvents = 'auto';
+                        const msg = encodeURIComponent(`Bonjour CultureCase 👋\nJe voudrais commander :\n\n• ${designName} — ${model}\n• Prix : ${price} FCFA\n\nMerci !`);
+                        waBtn.href = `https://wa.me/22375992482?text=${msg}`;
+                      }
+                    }
+
+                    select.addEventListener('change', updateStock);
+                  });
+              });
+          })();
+        </script>
+
+      </div>
+    </div>
+  </div>
+</Base> 
