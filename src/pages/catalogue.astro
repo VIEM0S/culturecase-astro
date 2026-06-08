@@ -57,25 +57,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </div>
 
   <!-- Grille produits (HTML statique — filtrage côté client) -->
-  <div id="prod-grid" class="prod-grid">
+  <div id="prod-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;padding:1.5rem 2rem">
     {designs.map(d => {
       const slug = slugify(d.name, d.id);
       return (
-        <a href={`${base}/coques/${slug}`} class="pc" data-id={d.id} data-name={d.name}>
-          <div class="pc-img-wrap">
+        <a href={`${base}/coques/${slug}`} class="pc" data-id={d.id} data-name={d.name}
+          style="background:#fff;border-radius:10px;overflow:hidden;border:1.5px solid #E2CEAA;box-shadow:0 2px 8px rgba(15,7,0,.06);cursor:pointer;display:block;text-decoration:none;color:inherit;transition:transform .3s,box-shadow .3s">
+          <div style="aspect-ratio:3/4;overflow:hidden;background:#F4EAD0;position:relative">
             <img
               src={d.img.includes('cloudinary') ? d.img.replace('/upload/', '/upload/w_400,f_auto,q_auto/') : d.img}
               alt={`Coque iPhone ${d.name}`}
               loading="lazy"
               width="400"
               height="533"
+              style="width:100%;height:100%;object-fit:cover;display:block"
             />
           </div>
-          <div class="pc-body">
-            <div class="pc-cat">{d.cat}</div>
-            <div class="pc-name">{d.name}</div>
-            <div class="pc-price">
-              <span id={`stock-${d.id}`} class="pc-stock-dot dot-ok"></span>
+          <div style="padding:.85rem 1rem 1rem">
+            <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#D94E15;margin-bottom:.3rem">{d.cat}</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1.5px;color:#0F0700;margin-bottom:.3rem;line-height:1.1">{d.name}</div>
+            <div style="font-size:12px;font-weight:600;color:#9A7848;display:flex;align-items:center;gap:4px">
+              <span id={`stock-${d.id}`} style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#22c55e;flex-shrink:0"></span>
               <span id={`price-${d.id}`}>3 500 – 5 000 FCFA</span>
             </div>
           </div>
@@ -84,7 +86,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     })}
   </div>
 
-  <style>
+  <style is:global>
     .ftag{border:1.5px solid var(--border);background:transparent;color:var(--muted);font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:20px;cursor:pointer;transition:all .22s;font-family:'DM Sans',sans-serif;white-space:nowrap}
     .ftag:hover{border-color:var(--ember);color:var(--ember);background:rgba(217,78,21,.05)}
     .ftag.on{border-color:var(--ember);background:var(--ember);color:#fff;box-shadow:0 2px 8px rgba(217,78,21,.25)}
