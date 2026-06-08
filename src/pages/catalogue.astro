@@ -1,0 +1,216 @@
+---
+import Base from '../layouts/Base.astro';
+import { fetchAllProducts } from '../lib/fetchProducts.js';
+import { slugify, MDS_G1, ALL_MDS } from '../lib/products.js';
+
+const { designs, stockMap } = await fetchAllProducts();
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base
+  title="Catalogue — Coques iPhone CultureCase · Bamako"
+  description={`${designs.length} designs exclusifs inspirés de la culture malienne. Bogolan, N'Ko, Djenné, Ciwara. Coques iPhone de l'iPhone 12 au 17 Pro Max.`}
+  currentPage="catalogue"
+>
+
+  <!-- Header catalogue -->
+  <div style="background:var(--dusk2);padding:1.75rem 2.5rem;border-bottom:2px solid rgba(232,160,32,.2)">
+    <div style="max-width:1100px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
+        <div style="width:18px;height:1.5px;background:var(--ember);border-radius:2px"></div>
+        <span style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ember);font-weight:600">Collection</span>
+      </div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:#fff;line-height:.9;margin-bottom:.5rem">
+        Tous les <em style="color:var(--gold);font-style:normal">designs</em>
+      </h1>
+      <p style="font-size:12px;color:rgba(255,255,255,.45)">{designs.length} designs · iPhone 12 → 17 Pro Max · Livraison Bamako</p>
+
+      <!-- Sélecteur modèle global -->
+      <div style="margin-top:1.25rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <span style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4)">MON IPHONE</span>
+        <select id="global-model" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(232,160,32,.3);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 14px;border-radius:var(--radius);cursor:pointer;min-width:220px">
+          <option value="">— Choisir mon modèle —</option>
+          <optgroup label="iPhone 12 / 13 · 3 500 FCFA">
+            {MDS_G1.map(m => <option value={m}>{m}</option>)}
+          </optgroup>
+          <optgroup label="iPhone 14 et plus · 5 000 FCFA">
+            {ALL_MDS.filter(m => !MDS_G1.includes(m)).map(m => <option value={m}>{m}</option>)}
+          </optgroup>
+        </select>
+        <span id="model-price-hint" style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);letter-spacing:1px"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtres -->
+  <div style="background:var(--cream);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:72px;z-index:100">
+    <div style="position:relative;flex:1;min-width:180px;max-width:280px">
+      <i class="ti ti-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px"></i>
+      <input id="search-input" type="search" placeholder="Rechercher un design..." autocomplete="off" autocorrect="off"
+        style="width:100%;padding:8px 10px 8px 32px;border:1.5px solid var(--border);border-radius:20px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--ink)"
+      />
+    </div>
+    <button id="sort-all"  class="ftag on"  onclick="setSort('all',this)">TOUS</button>
+    <button id="sort-new"  class="ftag"     onclick="setSort('new',this)">✦ NOUVEAUTÉS</button>
+    <button id="dispo-btn" class="ftag"     onclick="toggleDispo(this)" disabled style="opacity:.38;cursor:not-allowed" title="Choisis d'abord ton modèle iPhone">✓ Disponible</button>
+    <span id="count-label" style="margin-left:auto;font-size:10px;color:var(--muted);letter-spacing:.5px"></span>
+  </div>
+
+  <!-- Grille produits (HTML statique — filtrage côté client) -->
+  <div id="prod-grid" class="prod-grid">
+    {designs.map(d => {
+      const slug = slugify(d.name, d.id);
+      return (
+        <a href={`${base}/coques/${slug}`} class="pc" data-id={d.id} data-name={d.name}>
+          <div class="pc-img-wrap">
+            <img
+              src={d.img.includes('cloudinary') ? d.img.replace('/upload/', '/upload/w_400,f_auto,q_auto/') : d.img}
+              alt={`Coque iPhone ${d.name}`}
+              loading="lazy"
+              width="400"
+              height="533"
+            />
+          </div>
+          <div class="pc-body">
+            <div class="pc-cat">{d.cat}</div>
+            <div class="pc-name">{d.name}</div>
+            <div class="pc-price">
+              <span id={`stock-${d.id}`} class="pc-stock-dot dot-ok"></span>
+              <span id={`price-${d.id}`}>3 500 – 5 000 FCFA</span>
+            </div>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+
+  <style>
+    .ftag{border:1.5px solid var(--border);background:transparent;color:var(--muted);font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:20px;cursor:pointer;transition:all .22s;font-family:'DM Sans',sans-serif;white-space:nowrap}
+    .ftag:hover{border-color:var(--ember);color:var(--ember);background:rgba(217,78,21,.05)}
+    .ftag.on{border-color:var(--ember);background:var(--ember);color:#fff;box-shadow:0 2px 8px rgba(217,78,21,.25)}
+    #sort-new.on{border-color:var(--gold2);background:var(--gold);color:var(--ink);box-shadow:0 2px 8px rgba(232,160,32,.3)}
+    #search-input:focus{outline:none;border-color:var(--ember);background:#fff}
+    .pc[data-hidden]{display:none}
+    @media(max-width:768px){
+      div[style*="sticky"]{top:60px}
+    }
+  </style>
+
+  <script define:vars={{ designsData: designs }}>
+    // Données stock injectées depuis Firebase côté client
+    const DS        = designsData;
+    let   stockMap  = {};
+    let   activeSort = 'all';
+    let   showDispo  = false;
+    const G1 = ['iPhone 12','iPhone 12 Pro Max','iPhone 13','iPhone 13 Pro','iPhone 13 Pro Max'];
+
+    // Firebase — stock temps réel
+    Promise.all([
+      import('https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js'),
+      import('https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js'),
+    ]).then(([{initializeApp,getApps},{getFirestore,doc,onSnapshot}]) => {
+      const app = getApps().length ? getApps()[0] : initializeApp({
+        apiKey:'AIzaSyCt9zlckcPb7agpkbBsIH4DPS7w55Fn2E8',
+        authDomain:'culturecase-gs.firebaseapp.com',
+        projectId:'culturecase-gs',
+        appId:'1:369046579849:web:3672d245a9f7d42e687458',
+      });
+      onSnapshot(doc(getFirestore(app),'data','main'), snap => {
+        if(!snap.exists()) return;
+        const d = snap.data();
+        const prods = (d.settings||d).products || [];
+        stockMap = {};
+        for(const p of prods){
+          if(!stockMap[p.designId]) stockMap[p.designId] = {};
+          stockMap[p.designId][p.model] = typeof p.stock==='number' ? p.stock : 0;
+        }
+        updateStockBadges();
+        filt();
+      });
+    });
+
+    function getStock(id, model){ return stockMap[id]?.[model] ?? -1; }
+
+    function updateStockBadges(){
+      const gm = document.getElementById('global-model').value;
+      for(const d of DS){
+        const dot  = document.getElementById('stock-'+d.id);
+        const prEl = document.getElementById('price-'+d.id);
+        if(!dot || !prEl) continue;
+        if(!gm){
+          dot.className='pc-stock-dot dot-ok';
+          prEl.textContent='3 500 – 5 000 FCFA';
+          continue;
+        }
+        const qty   = getStock(d.id, gm);
+        const price = G1.includes(gm) ? '3 500' : '5 000';
+        if(qty===0){  dot.className='pc-stock-dot dot-out'; prEl.textContent='Rupture — '+gm; }
+        else if(qty>0&&qty<=3){ dot.className='pc-stock-dot dot-low'; prEl.textContent=price+' FCFA · '+qty+' restant'+(qty>1?'s':''); }
+        else if(qty>3){ dot.className='pc-stock-dot dot-ok'; prEl.textContent=price+' FCFA'; }
+        else { dot.className='pc-stock-dot dot-out'; prEl.textContent='Non disponible pour '+gm; }
+      }
+    }
+
+    function filt(){
+      const gm = document.getElementById('global-model').value;
+      const q  = (document.getElementById('search-input').value||'').trim().toLowerCase();
+      const cards = document.querySelectorAll('#prod-grid .pc');
+      let visible = [];
+
+      // Construire liste filtrée
+      let res = DS.filter(d => {
+        if(q && !d.name.toLowerCase().includes(q)) return false;
+        if(showDispo && gm && getStock(d.id,gm)===0) return false;
+        return true;
+      });
+
+      // Tri
+      if(activeSort==='new') res = [...res].reverse().slice(0,6);
+
+      const visibleIds = new Set(res.map(d=>d.id));
+      cards.forEach(c => {
+        if(visibleIds.has(c.dataset.id)) c.removeAttribute('data-hidden');
+        else c.setAttribute('data-hidden','');
+      });
+      const count = document.getElementById('count-label');
+      if(count) count.textContent = res.length+' design'+(res.length>1?'s':'');
+    }
+
+    function setSort(sort, btn){
+      activeSort = sort;
+      document.querySelectorAll('#sort-all,#sort-new').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      filt();
+    }
+
+    function toggleDispo(btn){
+      const gm = document.getElementById('global-model').value;
+      if(!gm) return;
+      showDispo = !showDispo;
+      btn.classList.toggle('on');
+      filt();
+    }
+
+    document.getElementById('global-model').addEventListener('change', function(){
+      const m = this.value;
+      const hint = document.getElementById('model-price-hint');
+      const dispoBtn = document.getElementById('dispo-btn');
+      if(m){
+        hint.textContent = G1.includes(m) ? '3 500 FCFA' : '5 000 FCFA';
+        dispoBtn.disabled=false; dispoBtn.style.opacity='1'; dispoBtn.style.cursor='pointer'; dispoBtn.title='';
+      } else {
+        hint.textContent='';
+        dispoBtn.disabled=true; dispoBtn.style.opacity='.38'; dispoBtn.style.cursor='not-allowed';
+        dispoBtn.title='Choisis d\'abord ton modèle iPhone';
+        if(showDispo){ showDispo=false; dispoBtn.classList.remove('on'); }
+      }
+      updateStockBadges();
+      filt();
+    });
+
+    document.getElementById('search-input').addEventListener('input', filt);
+
+    // Init
+    filt();
+  </script>
+</Base>
