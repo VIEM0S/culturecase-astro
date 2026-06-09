@@ -1,0 +1,79 @@
+---
+import Base from '../../layouts/Base.astro';
+import { fetchAllPosts } from '../../lib/fetchBlog.js';
+
+const posts = await fetchAllPosts();
+const base  = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function fmtDate(ts) {
+  if (!ts) return '';
+  return new Date(ts).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+}
+---
+
+<Base
+  title="Blog CultureCase — Culture, design et patrimoine malien"
+  description="Articles sur la culture malienne, les designs CultureCase, le bogolan, le N'Ko, et l'identité malienne."
+  currentPage="blog"
+>
+
+<!-- Header blog -->
+<div style="background:#120500;padding:2rem 2.5rem;border-bottom:2px solid rgba(232,160,32,.2)">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
+      <div style="width:18px;height:1.5px;background:#E8A020;border-radius:2px"></div>
+      <span style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(232,160,32,.7);font-weight:600">Journal</span>
+    </div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:#fff;line-height:.9;margin-bottom:.5rem">
+      Culture & <em style="color:#E8A020;font-style:normal">Design</em>
+    </h1>
+    <p style="font-size:12px;color:rgba(255,255,255,.4)">{posts.length} article{posts.length > 1 ? 's' : ''} · Patrimoine malien · Fait à Bamako</p>
+  </div>
+</div>
+
+<!-- Liste articles -->
+<div style="max-width:900px;margin:0 auto;padding:2rem 2.5rem">
+  {posts.length === 0 ? (
+    <div style="text-align:center;padding:4rem 2rem;color:#9A7848">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#E2CEAA;margin-bottom:1rem">Articles bientôt disponibles</div>
+      <p style="font-size:13px;line-height:1.7">Nous préparons des contenus sur la culture malienne, les designs et le patrimoine.<br>Revenez bientôt !</p>
+      <a href={`${base}/catalogue`} style="display:inline-block;margin-top:1.5rem;background:#D94E15;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:10px 24px;border-radius:6px;text-decoration:none">
+        Voir les designs →
+      </a>
+    </div>
+  ) : (
+    <div style="display:flex;flex-direction:column;gap:1.5rem">
+      {posts.map(post => (
+        <a href={`${base}/blog/${post.slug}`}
+          style="display:grid;grid-template-columns:${post.cover ? '280px 1fr' : '1fr'};gap:1.5rem;background:#fff;border-radius:10px;overflow:hidden;border:1.5px solid #E2CEAA;box-shadow:0 2px 8px rgba(15,7,0,.06);text-decoration:none;color:inherit;transition:transform .3s,box-shadow .3s">
+          {post.cover && (
+            <div style="overflow:hidden;background:#F4EAD0;aspect-ratio:16/9">
+              <img
+                src={post.cover.includes('cloudinary') ? post.cover.replace('/upload/','/upload/w_560,f_auto,q_auto/') : post.cover}
+                alt={post.title}
+                loading="lazy"
+                style="width:100%;height:100%;object-fit:cover;display:block"
+              />
+            </div>
+          )}
+          <div style="padding:1.25rem 1.5rem;display:flex;flex-direction:column;justify-content:center">
+            {post.tags.length > 0 && (
+              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.6rem">
+                {post.tags.slice(0,3).map(tag => (
+                  <span style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#D94E15;background:rgba(217,78,21,.08);padding:3px 8px;border-radius:3px">{tag}</span>
+                ))}
+              </div>
+            )}
+            <h2 style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;color:#0F0700;line-height:1.1;margin-bottom:.5rem">{post.title}</h2>
+            {post.excerpt && (
+              <p style="font-size:12.5px;color:#9A7848;line-height:1.7;margin-bottom:.75rem">{post.excerpt}</p>
+            )}
+            <div style="font-size:10px;color:#B5A080;letter-spacing:.5px">{fmtDate(post.createdAt)}</div>
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</div>
+
+</Base>

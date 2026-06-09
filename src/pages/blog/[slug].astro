@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+import { fetchAllPosts } from '../../lib/fetchBlog.js';
+
+export async function getStaticPaths() {
+  const posts = await fetchAllPosts();
+  return posts.map(p => ({
+    params: { slug: p.slug },
+    props:  { post: p },
+  }));
+}
+
+const { post } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function fmtDate(ts) {
+  if (!ts) return '';
+  return new Date(ts).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+}
+
+// Convertir le contenu texte brut en HTML basique (sauts de ligne → paragraphes)
+function contentToHtml(text) {
+  if (!text) return '';
+  return text
+    .split(/\n\n+/)
+    .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+    .join('');
+}
+---
+
+<Base
+  title={`${post.title} — Blog CultureCase`}
+  description={post.excerpt || post.title}
+  image={post.cover || undefined}
+  currentPage="blog"
+>
+
+  <main style="max-width:760px;margin:0 auto;padding:2.5rem 2rem">
+
+    <!-- Breadcrumb -->
+    <nav style="font-size:12px;color:#9A7848;margin-bottom:2rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <a href={`${base}/`} style="color:#D94E15;text-decoration:none">Accueil</a>
+      <span>›</span>
+      <a href={`${base}/blog`} style="color:#D94E15;text-decoration:none">Blog</a>
+      <span>›</span>
+      <span>{post.title}</span>
+    </nav>
+
+    <!-- Tags -->
+    {post.tags.length > 0 && (
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem">
+        {post.tags.map(tag => (
+          <span style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#D94E15;background:rgba(217,78,21,.08);padding:3px 8px;border-radius:3px">{tag}</span>
+        ))}
+      </div>
+    )}
+
+    <!-- Titre -->
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:2px;color:#0F0700;line-height:.9;margin-bottom:1rem">{post.title}</h1>
+
+    <!-- Date -->
+    <div style="font-size:11px;color:#9A7848;letter-spacing:.5px;margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid #E2CEAA">
+      Publié le {fmtDate(post.createdAt)}
+    </div>
+
+    <!-- Image cover -->
+    {post.cover && (
+      <div style="border-radius:10px;overflow:hidden;margin-bottom:2rem;box-shadow:0 8px 32px rgba(15,7,0,.12)">
+        <img
+          src={post.cover.includes('cloudinary') ? post.cover.replace('/upload/','/upload/w_760,f_auto,q_auto/') : post.cover}
+          alt={post.title}
+          loading="eager"
+          style="width:100%;display:block"
+        />
+      </div>
+    )}
+
+    <!-- Excerpt -->
+    {post.excerpt && (
+      <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#9A7848;line-height:1.8;margin-bottom:1.75rem;border-left:3px solid #E8A020;padding-left:16px;font-style:italic">{post.excerpt}</p>
+    )}
+
+    <!-- Contenu -->
+    <div style="font-size:14px;color:#2A1800;line-height:1.9" set:html={contentToHtml(post.content)} />
+
+    <!-- Footer article -->
+    <div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid #E2CEAA;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+      <a href={`${base}/blog`} style="font-size:12px;color:#D94E15;text-decoration:none;font-weight:600">← Retour au blog</a>
+      <a href={`${base}/catalogue`} style="background:#D94E15;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:9px 20px;border-radius:6px;text-decoration:none">
+        Voir les designs →
+      </a>
+    </div>
+
+  </main>
+
+</Base>
