@@ -1,0 +1,194 @@
+---
+import Base from '../layouts/Base.astro';
+import { fetchAllProducts } from '../lib/fetchProducts.js';
+import { slugify } from '../lib/products.js';
+
+const { designs } = await fetchAllProducts();
+const featured = designs.slice(0, 8);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base
+  title="CultureCase — Coques iPhone made in Mali · Bamako"
+  description="Coques iPhone aux designs culturels maliens exclusifs. Bogolan, N'Ko, Djenné, Ciwara — impression HD, livraison à Bamako."
+  currentPage="home"
+>
+
+<!-- HERO -->
+<div style="background:#120500;position:relative;overflow:hidden">
+  <!-- Pattern diagonal -->
+  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+    <div style="position:absolute;inset:-40%;background-image:repeating-linear-gradient(-55deg,transparent 0,transparent 28px,rgba(232,160,32,.028) 28px,rgba(232,160,32,.028) 29px);animation:patDrift 60s linear infinite"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 20% 50%,rgba(217,78,21,.07) 0%,transparent 70%)"></div>
+  </div>
+
+  <!-- Contenu hero -->
+  <div style="display:grid;grid-template-columns:1.15fr .85fr;min-height:220px;position:relative;z-index:1;max-width:1400px;margin:0 auto">
+    <!-- Gauche -->
+    <div style="padding:2.5rem 2.5rem 2rem;display:flex;flex-direction:column;justify-content:center">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem">
+        <div style="width:24px;height:1.5px;background:#E8A020;border-radius:2px"></div>
+        <span style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(232,160,32,.7)">Design exclusif · Fait à Bamako</span>
+      </div>
+      <div style="display:flex;align-items:flex-end;gap:1.5rem;margin-bottom:1.25rem;flex-wrap:wrap">
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,88px);letter-spacing:2px;color:#fff;line-height:.85;flex-shrink:0">
+          L'âme<br>du <span style="color:#E8A020">Mali</span>
+        </h1>
+        <div style="padding-bottom:.5rem">
+          <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.5vw,26px);letter-spacing:4px;color:rgba(255,255,255,.45);margin-bottom:.5rem">dans ta main</p>
+          <p style="font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.8;max-width:380px">Des designs exclusifs inspirés du bogolan, du N'Ko, des monuments et des valeurs du Mali. Conçus à Bamako, portés partout.</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href={`${base}/catalogue`} style="background:#D94E15;color:#fff;border:none;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2.5px;padding:12px 28px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:background .2s">
+          <i class="ti ti-arrow-right"></i> Voir les designs
+        </a>
+        <a href={`${base}/histoire`} style="background:transparent;color:rgba(255,255,255,.65);border:1.5px solid rgba(255,255,255,.2);font-family:'DM Sans',sans-serif;font-size:12px;padding:11px 22px;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block">
+          Notre histoire →
+        </a>
+      </div>
+    </div>
+
+    <!-- Droite — grille images -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;padding:4px;max-height:280px;overflow:hidden">
+      <a href={`${base}/coques/bogolan-d12`} style="position:relative;overflow:hidden;background:#1A0800;cursor:pointer;grid-row:span 2;display:block">
+        <img src="https://res.cloudinary.com/dknfqd2xp/image/upload/w_400,f_auto,q_auto/v1779767675/zutdygs9wnxbheeilcl9.jpg" alt="Bogolan" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.85);transition:filter .3s" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:.5rem .8rem;background:linear-gradient(to top,rgba(15,7,0,.85) 0%,transparent 100%);font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2.5px;color:#E8A020">BOGOLAN</div>
+      </a>
+      <a href={`${base}/coques/djenn-d1`} style="position:relative;overflow:hidden;background:#1A0800;cursor:pointer;display:block">
+        <img src="https://res.cloudinary.com/dknfqd2xp/image/upload/w_300,f_auto,q_auto/v1779767538/ynvij5rszvqmamfs9hgm.jpg" alt="Djenné" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.85)" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:.5rem .8rem;background:linear-gradient(to top,rgba(15,7,0,.85) 0%,transparent 100%);font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2.5px;color:#E8A020">DJENNÉ</div>
+      </a>
+      <a href={`${base}/coques/n-ko-d13`} style="position:relative;overflow:hidden;background:#1A0800;cursor:pointer;display:block">
+        <img src="https://res.cloudinary.com/dknfqd2xp/image/upload/w_300,f_auto,q_auto/v1779767905/wketzekxsrqlupeqrdi2.jpg" alt="N'Ko" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.85)" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:.5rem .8rem;background:linear-gradient(to top,rgba(15,7,0,.85) 0%,transparent 100%);font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2.5px;color:#E8A020">N'KO</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Stats bar -->
+  <div style="display:flex;border-top:1px solid rgba(255,255,255,.05);background:rgba(0,0,0,.2)">
+    <div style="flex:1;padding:1rem 1.5rem;border-right:1px solid rgba(255,255,255,.05)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#E8A020;letter-spacing:1px;line-height:1">{designs.length}</div>
+      <div style="font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:3px">Designs exclusifs</div>
+    </div>
+    <div style="flex:1;padding:1rem 1.5rem;border-right:1px solid rgba(255,255,255,.05)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#E8A020;letter-spacing:1px;line-height:1">21</div>
+      <div style="font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:3px">Modèles iPhone</div>
+    </div>
+    <div style="flex:1;padding:1rem 1.5rem;border-right:1px solid rgba(255,255,255,.05)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#E8A020;letter-spacing:1px;line-height:1">Bamako</div>
+      <div style="font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:3px">Disponible maintenant</div>
+    </div>
+    <div style="flex:1;padding:1rem 1.5rem">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#E8A020;letter-spacing:1px;line-height:1">100%</div>
+      <div style="font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:3px">Identité malienne</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div style="background:#D94E15;padding:9px 0;overflow:hidden;white-space:nowrap;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(0,0,0,.1)">
+  <div style="display:inline-flex;animation:tick 32s linear infinite">
+    {[1,2].map(() => (
+      ['BOGOLAN','N\'KO','DJENNÉ','CIWARA','WAX','MONUMENTS','PATRIMOINE MALIEN','FAIT À BAMAKO','DESIGNS EXCLUSIFS','IMPRESSION HD'].map(t => (
+        <span style="display:inline-flex;align-items:center;gap:12px;font-family:'Bebas Neue',sans-serif;font-size:12.5px;letter-spacing:3.5px;color:rgba(255,255,255,.9);padding:0 2.5rem">
+          {t}<span style="width:3px;height:3px;background:rgba(255,255,255,.5);border-radius:50%;display:inline-block"></span>
+        </span>
+      ))
+    ))}
+  </div>
+</div>
+
+<!-- COUPS DE COEUR -->
+<div style="padding:1.75rem 2rem">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.25rem">
+    <div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;color:#0F0700;line-height:1">
+        Coups de <em style="color:#D94E15;font-style:normal">cœur</em>
+      </div>
+    </div>
+    <a href={`${base}/catalogue`} style="border:1.5px solid #E2CEAA;background:transparent;color:#9A7848;font-family:'DM Sans',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:3px;text-decoration:none;transition:all .22s">
+      Tout voir →
+    </a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px">
+    {featured.map(d => (
+      <a href={`${base}/coques/${slugify(d.name, d.id)}`}
+        style="background:#fff;border-radius:10px;overflow:hidden;border:1.5px solid #E2CEAA;box-shadow:0 2px 8px rgba(15,7,0,.06);display:block;text-decoration:none;color:inherit;transition:transform .3s,box-shadow .3s">
+        <div style="aspect-ratio:3/4;overflow:hidden;background:#F4EAD0">
+          <img
+            src={d.img.includes('cloudinary') ? d.img.replace('/upload/','/upload/w_360,f_auto,q_auto/') : d.img}
+            alt={`Coque iPhone ${d.name}`}
+            loading="lazy"
+            width="360"
+            height="480"
+            style="width:100%;height:100%;object-fit:cover;display:block"
+          />
+        </div>
+        <div style="padding:.75rem 1rem .85rem">
+          <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#D94E15;margin-bottom:.25rem">{d.cat}</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;color:#0F0700;line-height:1.1">{d.name}</div>
+        </div>
+      </a>
+    ))}
+  </div>
+</div>
+
+<!-- AVIS CLIENTS -->
+<div style="padding:1.75rem 2rem;background:#FBF6ED;border-top:1px solid #E2CEAA">
+  <div style="margin-bottom:1.25rem">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;color:#0F0700;line-height:1">
+      Ils <em style="color:#D94E15;font-style:normal">parlent</em> de nous
+    </div>
+    <div style="font-size:9.5px;color:#9A7848;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px">Avis clients</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">
+    {[
+      { stars:5, text:"J'ai commandé le Bogolan pour mon iPhone 15. La qualité est incroyable, le design est vraiment fidèle. Tout Bamako me demande où j'ai eu ça !", name:"Aminata K.", loc:"Badalabougou, Bamako", init:"AK" },
+      { stars:5, text:"Livraison rapide, coque bien protégée dans l'emballage. Le design N'Ko est magnifique — un vrai bijou. Je vais en commander une autre pour offrir.", name:"Ibrahim B.", loc:"Hippodrome, Bamako", init:"IB" },
+      { stars:5, text:"Enfin une marque malienne qui fait des coques de qualité ! Le Ciwara est mon préféré. Porter sa culture sur son téléphone, c'est exactement ce qu'il faut.", name:"Fatoumata D.", loc:"ACI 2000, Bamako", init:"FD" },
+      { stars:4, text:"La réponse sur WhatsApp est ultra rapide, la livraison le lendemain. La coque Djenné est superbe — ma femme l'a volée directement !", name:"Moussa S.", loc:"Kalaban Coura, Bamako", init:"MS" },
+    ].map(r => (
+      <div style="background:#fff;border-radius:10px;padding:1.25rem;border:1.5px solid #E2CEAA;box-shadow:0 2px 8px rgba(15,7,0,.04)">
+        <div style="color:#E8A020;font-size:14px;margin-bottom:.75rem">{'★'.repeat(r.stars)}{'☆'.repeat(5-r.stars)}</div>
+        <p style="font-size:12.5px;color:#0F0700;line-height:1.7;margin-bottom:1rem;font-style:italic">« {r.text} »</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:34px;height:34px;border-radius:50%;background:#D94E15;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">{r.init}</div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#0F0700">{r.name}</div>
+            <div style="font-size:10px;color:#9A7848">{r.loc}</div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div style="background:#120500;padding:2.5rem;text-align:center;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(217,78,21,.08) 0%,transparent 70%);pointer-events:none"></div>
+  <div style="position:relative;z-index:1;max-width:560px;margin:0 auto">
+    <div style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(232,160,32,.6);margin-bottom:.75rem">Ta culture, dans ta main</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);letter-spacing:3px;color:#fff;line-height:.9;margin-bottom:1rem">
+      Trouve ton <em style="color:#E8A020;font-style:normal">design</em>
+    </h2>
+    <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.75;margin-bottom:1.75rem">46 designs exclusifs. De l'iPhone 12 au 17 Pro Max. Livraison à Bamako.</p>
+    <a href={`${base}/catalogue`} style="background:#D94E15;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2.5px;padding:14px 36px;border-radius:6px;text-decoration:none;display:inline-block;transition:background .2s">
+      Voir les {designs.length} designs →
+    </a>
+  </div>
+</div>
+
+<style>
+@keyframes patDrift { to { transform: translateX(60px) translateY(30px); } }
+@keyframes tick { to { transform: translateX(-50%); } }
+@media(max-width:768px){
+  div[style*="grid-template-columns:1.15fr"]{grid-template-columns:1fr !important}
+  div[style*="max-height:280px"]{display:none !important}
+  div[style*="display:flex;border-top"]{flex-wrap:wrap}
+  div[style*="flex:1;padding:1rem 1.5rem"]{min-width:50%}
+}
+</style>
+
+</Base>

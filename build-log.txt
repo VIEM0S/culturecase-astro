@@ -2,16 +2,17 @@
 > culturecase-site@0.0.1 build
 > astro build
 
-[2m21:23:36[22m [34m[types][39m Generated [2m55ms[22m
-[2m21:23:36[22m [34m[build][39m output: [34m"static"[39m
-[2m21:23:36[22m [34m[build][39m mode: [34m"static"[39m
-[2m21:23:36[22m [34m[build][39m directory: [34mC:\Users\dmoha\Documents\culturecase-site\dist\[39m
-[2m21:23:36[22m [34m[build][39m Collecting build info...
-[2m21:23:36[22m [34m[build][39m [32m✓ Completed in 100ms.[39m
-[2m21:23:36[22m [34m[build][39m Building static entrypoints...
-[2m21:23:37[22m [34m[vite][39m [32m✓ built in 1.50s[39m
-[2m21:23:38[22m [34m[vite][39m [32m✓ built in 797ms[39m
-[2m21:23:38[22m [34m[build][39m Rearranging server assets...
+[2m06:15:10[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m06:15:11[22m [34m[types][39m Generated [2m1.62s[22m
+[2m06:15:11[22m [34m[build][39m output: [34m"static"[39m
+[2m06:15:11[22m [34m[build][39m mode: [34m"static"[39m
+[2m06:15:11[22m [34m[build][39m directory: [34mC:\Users\dmoha\Documents\culturecase-site\dist\[39m
+[2m06:15:11[22m [34m[build][39m Collecting build info...
+[2m06:15:11[22m [34m[build][39m [32m✓ Completed in 1.69s.[39m
+[2m06:15:11[22m [34m[build][39m Building static entrypoints...
+[2m06:15:13[22m [34m[vite][39m [32m✓ built in 1.54s[39m
+[2m06:15:14[22m [34m[vite][39m [32m✓ built in 819ms[39m
+[2m06:15:14[22m [34m[build][39m Rearranging server assets...
 
 [42m[30m generating static routes [39m[49m
 [fetchProducts] data/main → HTTP 200
@@ -22,7 +23,7 @@
 [fetchProducts] data/products_3 → HTTP 200
 [fetchProducts] data/products_4 → HTTP 200
 [fetchProducts] 966 entrées stock trouvées
-[2m21:23:42[22m   [34m├─[39m [2m/catalogue/index.html[22m[fetchProducts] data/main → HTTP 200
+[2m06:15:15[22m   [34m├─[39m [2m/catalogue/index.html[22m[fetchProducts] data/main → HTTP 200
 [fetchProducts] 46 designs trouvés
 [fetchProducts] data/products_0 → HTTP 200
 [fetchProducts] data/products_1 → HTTP 200
@@ -30,57 +31,65 @@
 [fetchProducts] data/products_3 → HTTP 200
 [fetchProducts] data/products_4 → HTTP 200
 [fetchProducts] 966 entrées stock trouvées
- [31m(+1.75s)[39m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/djenn-d1/index.html[22m [2m(+6ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/porte-de-tombouctou-d2/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/munyu-d3/index.html[22m [2m(+4ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/blm-d4/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/indigo-coris-d5/index.html[22m [2m(+12ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/masque-dogon-d6/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/africa-d7/index.html[22m [2m(+4ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/touareg-d8/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/k-musso-d9/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/musso-d10/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/djoliba-d11/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/bogolan-d12/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/n-ko-d13/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/ciwara-maron-d14/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/homme-bleu-d15/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/azt-que-d16/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/cauris-masque-de-bambara-d17/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/monument-du-mali-2-d18/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/djenn-rouge-d19/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/nya-d20/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/ciwara-bogolan-d21/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/saramaya-d22/index.html[22m [2m(+12ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/bobotiki-d23/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/bintou-d24/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/wax-d25/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/galaxie-bleue-d26/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/ko-d27/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/b-nkadi-d28/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/t-l-d29/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/toro-d30/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/caro-d31/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/voile-d32/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/sababu-d33/index.html[22m [2m(+8ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/wari-d34/index.html[22m [2m(+6ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/djat-d35/index.html[22m [2m(+4ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/massa-musso-d36/index.html[22m [2m(+6ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/ty-d37/index.html[22m [2m(+5ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/sabati-d38/index.html[22m [2m(+4ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/ciwara-ke-ciwara-musso-d39/index.html[22m [2m(+10ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/k-l-ya-d40/index.html[22m [2m(+4ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/noir-jaune-d41/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/afro-queen-d42/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/kak-l-d43/index.html[22m [2m(+11ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/bozo-d44/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/nma-d45/index.html[22m [2m(+2ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/coques/soudan-d46/index.html[22m [2m(+3ms)[22m 
-[2m21:23:44[22m   [34m├─[39m [2m/index.html[22m [2m(+4ms)[22m 
-[2m21:23:44[22m [32m✓ Completed in 5.69s.
+ [31m(+1.64s)[39m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/djenn-d1/index.html[22m [2m(+5ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/porte-de-tombouctou-d2/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/munyu-d3/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/blm-d4/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/indigo-coris-d5/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/masque-dogon-d6/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/africa-d7/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/touareg-d8/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/k-musso-d9/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/musso-d10/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/djoliba-d11/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/bogolan-d12/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/n-ko-d13/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/ciwara-maron-d14/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/homme-bleu-d15/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/azt-que-d16/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/cauris-masque-de-bambara-d17/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/monument-du-mali-2-d18/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/djenn-rouge-d19/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/nya-d20/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/ciwara-bogolan-d21/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/saramaya-d22/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/bobotiki-d23/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/bintou-d24/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/wax-d25/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/galaxie-bleue-d26/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/ko-d27/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/b-nkadi-d28/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/t-l-d29/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/toro-d30/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/caro-d31/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/voile-d32/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/sababu-d33/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/wari-d34/index.html[22m [2m(+4ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/djat-d35/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/massa-musso-d36/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/ty-d37/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/sabati-d38/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/ciwara-ke-ciwara-musso-d39/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/k-l-ya-d40/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/noir-jaune-d41/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/afro-queen-d42/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/kak-l-d43/index.html[22m [2m(+2ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/bozo-d44/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/nma-d45/index.html[22m [2m(+6ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/coques/soudan-d46/index.html[22m [2m(+3ms)[22m 
+[2m06:15:17[22m   [34m├─[39m [2m/index.html[22m[fetchProducts] data/main → HTTP 200
+[fetchProducts] 46 designs trouvés
+[fetchProducts] data/products_0 → HTTP 200
+[fetchProducts] data/products_1 → HTTP 200
+[fetchProducts] data/products_2 → HTTP 200
+[fetchProducts] data/products_3 → HTTP 200
+[fetchProducts] data/products_4 → HTTP 200
+[fetchProducts] 966 entrées stock trouvées
+ [31m(+1.17s)[39m 
+[2m06:15:18[22m [32m✓ Completed in 4.52s.
 [39m
-[2m21:23:44[22m [34m[build][39m [32m✓ Completed in 8.07s.[39m
-[2m21:23:44[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `dist`
-[2m21:23:44[22m [34m[build][39m 48 page(s) built in [1m8.23s[22m
-[2m21:23:44[22m [34m[build][39m [1mComplete![22m
+[2m06:15:18[22m [34m[build][39m [32m✓ Completed in 6.98s.[39m
+[2m06:15:18[22m [34m[@astrojs/sitemap][39m `sitemap-index.xml` created at `dist`
+[2m06:15:18[22m [34m[build][39m 48 page(s) built in [1m8.72s[22m
+[2m06:15:18[22m [34m[build][39m [1mComplete![22m
