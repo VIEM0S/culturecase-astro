@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base title="Livraison & Retours — CultureCase" description="Informations de livraison CultureCase à Bamako. Délais, zones, conditions de retour." currentPage="">
+
+<div style="background:#120500;padding:2rem 2.5rem;border-bottom:2px solid rgba(232,160,32,.2)">
+  <div style="max-width:760px;margin:0 auto">
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:3px;color:#fff;line-height:.9">Livraison & <em style="color:#E8A020;font-style:normal">Retours</em></h1>
+  </div>
+</div>
+
+<div style="max-width:760px;margin:0 auto;padding:2.5rem;display:flex;flex-direction:column;gap:1.5rem">
+
+  {[
+    { titre:'Zone de livraison', contenu:'Nous livrons actuellement dans tout Bamako et ses environs immédiats (Kati, Kalaban Coura, Badalabougou, ACI 2000, Hippodrome, Hamdallaye, etc.).' },
+    { titre:'Délais de livraison', contenu:'24 à 48 heures après confirmation de commande via WhatsApp. Pour les commandes passées avant 14h, la livraison est souvent possible le lendemain.' },
+    { titre:'Frais de livraison', contenu:'Les frais de livraison sont calculés en fonction de votre quartier et communiqués lors de la confirmation de commande sur WhatsApp. Livraison offerte pour toute commande de 2 coques ou plus dans le même secteur.' },
+    { titre:'Modes de livraison', contenu:'Livraison à domicile par notre livreur. Vous recevrez un message WhatsApp avec l\'heure approximative de passage.' },
+    { titre:'Politique de retour', contenu:'Si votre coque arrive endommagée ou ne correspond pas à votre commande, contactez-nous dans les 48h par WhatsApp avec une photo. Nous procéderons à un échange sans frais.' },
+    { titre:'Produit non conforme', contenu:'Dans le cas rare où la coque ne correspond pas au design commandé ou présente un défaut de fabrication, nous nous engageons à remplacer le produit ou à vous rembourser intégralement.' },
+  ].map(item => (
+    <div style="background:#fff;border:1.5px solid #E2CEAA;border-radius:10px;padding:1.25rem 1.5rem">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1.5px;color:#D94E15;margin-bottom:.5rem">{item.titre}</div>
+      <p style="font-size:13px;color:#5A3E28;line-height:1.8">{item.contenu}</p>
+    </div>
+  ))}
+
+  <div style="text-align:center;padding-top:1rem">
+    <a href="https://wa.me/22375992482" target="_blank" rel="noopener"
+      style="background:#D94E15;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:12px 28px;border-radius:6px;text-decoration:none;display:inline-block">
+      Une question ? WhatsApp →
+    </a>
+  </div>
+
+</div>
+</Base>

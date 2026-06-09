@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base
+  title="Notre Histoire — CultureCase · Bamako, Mali"
+  description="CultureCase est une marque malienne née à Bamako, portant le patrimoine culturel malien sur vos iPhones. Bogolan, N'Ko, Djenné, Ciwara."
+  currentPage="histoire"
+>
+
+<!-- Header -->
+<div style="background:#120500;padding:2rem 2.5rem;border-bottom:2px solid rgba(232,160,32,.2)">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
+      <div style="width:18px;height:1.5px;background:#E8A020;border-radius:2px"></div>
+      <span style="font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(232,160,32,.7);font-weight:600">Notre histoire</span>
+    </div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:#fff;line-height:.9">
+      L'âme du <em style="color:#E8A020;font-style:normal">Mali</em>
+    </h1>
+  </div>
+</div>
+
+<div style="max-width:900px;margin:0 auto;padding:2.5rem">
+
+  <!-- Grille images -->
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px;margin-bottom:2.5rem;border-radius:10px;overflow:hidden">
+    <div style="grid-row:span 2;overflow:hidden;background:#F4EAD0">
+      <img src="https://res.cloudinary.com/dknfqd2xp/image/upload/w_500,f_auto,q_auto/v1779767813/ujlarvjopqep37hwm2n2.jpg" alt="Ciwara" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" />
+    </div>
+    <div style="overflow:hidden;background:#F4EAD0;aspect-ratio:1">
+      <img src="https://res.cloudinary.com/dknfqd2xp/image/upload/w_300,f_auto,q_auto/v1779767550/erdvdubi3wvbb3pgoirj.jpg" alt="Munyu" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" />
+    </div>
+    <div style="overflow:hidden;background:#F4EAD0;aspect-ratio:1">
+      <img src="https://res.cloudinary.com/dknfqd2xp/image/upload/w_300,f_auto,q_auto/v1779767718/smtv6hdke2pdelv3z0ob.jpg" alt="Bènkadi" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" />
+    </div>
+    <div style="overflow:hidden;background:#F4EAD0;aspect-ratio:1">
+      <img src="https://res.cloudinary.com/dknfqd2xp/image/upload/w_300,f_auto,q_auto/v1779767675/zutdygs9wnxbheeilcl9.jpg" alt="Bogolan" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" />
+    </div>
+    <div style="overflow:hidden;background:#F4EAD0;aspect-ratio:1">
+      <img src="https://res.cloudinary.com/dknfqd2xp/image/upload/w_300,f_auto,q_auto/v1779767905/wketzekxsrqlupeqrdi2.jpg" alt="N'Ko" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy" />
+    </div>
+  </div>
+
+  <!-- Contenu -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start">
+    <div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#0F0700;margin-bottom:1rem">Né à Bamako</h2>
+      <p style="font-size:13.5px;color:#5A3E28;line-height:1.85;margin-bottom:1rem">
+        CultureCase est une marque malienne née d'une conviction simple : notre culture mérite d'être portée avec fierté au quotidien. Pas accrochée dans un musée, pas réservée aux cérémonies — sur ton téléphone, dans ta poche, partout où tu vas.
+      </p>
+      <p style="font-size:13.5px;color:#5A3E28;line-height:1.85">
+        Chaque design est une invitation à porter l'identité malienne avec élégance. Le bogolan, le N'Ko, les mosquées de Djenné, le Ciwara — ces symboles millénaires prennent vie sur des coques iPhone de qualité premium.
+      </p>
+    </div>
+    <div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#0F0700;margin-bottom:1rem">Notre philosophie</h2>
+      <p style="font-size:13.5px;color:#5A3E28;line-height:1.85;margin-bottom:1rem">
+        Nous travaillons avec des artistes et designers maliens pour créer des visuels authentiques, fidèles aux motifs et aux couleurs qui définissent notre patrimoine visuel.
+      </p>
+      <p style="font-size:13.5px;color:#5A3E28;line-height:1.85">
+        Impression HD, matériaux durables, livraison directe à Bamako. CultureCase, c'est la preuve que l'excellence et l'identité africaine vont de pair.
+      </p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#E2CEAA;border-radius:10px;overflow:hidden;margin-top:2.5rem">
+    {[
+      { n:'46+', l:'Designs exclusifs' },
+      { n:'21',  l:'Modèles iPhone' },
+      { n:'100%', l:'Fait à Bamako' },
+      { n:'∞',   l:'Passion malienne' },
+    ].map(s => (
+      <div style="background:#FBF6ED;padding:1.5rem;text-align:center">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#D94E15;letter-spacing:1px;line-height:1">{s.n}</div>
+        <div style="font-size:10px;color:#9A7848;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px">{s.l}</div>
+      </div>
+    ))}
+  </div>
+
+  <!-- CTA -->
+  <div style="text-align:center;margin-top:2.5rem">
+    <a href={`${base}/catalogue`} style="background:#D94E15;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2.5px;padding:13px 32px;border-radius:6px;text-decoration:none;display:inline-block">
+      Voir les designs →
+    </a>
+  </div>
+
+</div>
+</Base>
